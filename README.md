@@ -1,8 +1,8 @@
-# Desafío: Administración de Cripto-Inversiones en Poli-Doge
+# Desafío: Administración de Cripto-Inversiones favoritos en Poli-Doge
 
 ## Objetivo
 
-¡Bienvenidos al desafío de Poli-Doge! El objetivo principal es desarrollar un servicio de API REST en Node.js que interactúe con la API externa de Poli-Doge (<https://api.coincap.io/v2/assets>) para obtener datos de criptomonedas. A través de esta API, los usuarios tendrán la posibilidad de gestionar sus inversiones en criptomonedas de manera cómoda y eficiente. ¡Prepárense para sumergirse en el emocionante mundo de las cripto-inversiones!
+¡Bienvenidos al desafío de Poli-Doge! El objetivo principal es desarrollar un servicio de API REST en Node.js que interactúe con la API externa de Poli-Doge (<https://api.coincap.io/v2/assets>) para obtener datos de criptomonedas. A través de esta API, los usuarios tendrán la posibilidad de gestionar sus inversiones en criptomonedas favoritos de manera cómoda y eficiente. ¡Prepárense para sumergirse en el emocionante mundo de las cripto-inversiones!
 
 ### Requisitos
 
