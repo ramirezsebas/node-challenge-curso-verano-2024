@@ -8,7 +8,7 @@
 
 1. **Autenticación de Usuarios**: Implementar un sistema de autenticación de usuarios utilizando tokens JWT para todas las operaciones. ¡La seguridad es nuestra prioridad en Poli-Doge!
 
-2. **Base de Datos de Usuario**: Utilizar una base de datos local basada en archivos (por ejemplo, JSON) para almacenar los datos del usuario y sus inversiones en criptomonedas favoritas. ¡Obtén un bono extra por esta funcionalidad!
+2. **Base de Datos de Usuario**: Utilizar una base de datos local basada en archivos (por ejemplo, JSON) para almacenar los datos del usuario.
 
 3. **Base de Datos de Invesiones de Criptomonedas favoritos** (Opcional, pero Bonus): Utilizar una base de datos local basada en archivos (por ejemplo, JSON) para almacenar los datos de las inversiones en criptomonedas favoritas. ¡Obtén un bono extra por esta funcionalidad!
 
