@@ -33,5 +33,4 @@
 
 ### Consideraciones Adicionales
 
-- Anima a los participantes a implementar una base de datos local como un bono opcional para almacenar datos de usuario y sus inversiones en criptomonedas.
 - Este desafío proporcionará a los participantes una valiosa experiencia en el desarrollo de API REST en Node.js, así como en la gestión y manipulación de datos financieros en tiempo real. ¡Que comience la aventura de las cripto-inversiones con Poli-Doge! 🚀🌕
