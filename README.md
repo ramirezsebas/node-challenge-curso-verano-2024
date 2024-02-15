@@ -10,7 +10,7 @@
 
 2. **Base de Datos de Usuario**: Utilizar una base de datos local basada en archivos (por ejemplo, JSON) para almacenar los datos del usuario.
 
-3. **Base de Datos de Invesiones de Criptomonedas favoritos** (Opcional, pero Bonus): Utilizar una base de datos local basada en archivos (por ejemplo, JSON) para almacenar los datos de las inversiones en criptomonedas favoritas. ¡Obtén un bono extra por esta funcionalidad!
+3. **Base de Datos de Invesiones de Criptomonedas favoritos**: Utilizar una base de datos local basada en archivos (por ejemplo, JSON) para almacenar los datos de las inversiones en criptomonedas favoritas.
 
 4. **Integración con API Externa**: Establecer comunicación con la API externa de Poli-Doge (<https://api.coincap.io/v2/assets>) para obtener información relevante de las criptomonedas en tiempo real. ¡Mantengamos nuestras inversiones actualizadas!
 
@@ -33,5 +33,4 @@
 
 ### Consideraciones Adicionales
 
-- Anima a los participantes a implementar una base de datos local como un bono opcional para almacenar datos de usuario y sus inversiones en criptomonedas.
 - Este desafío proporcionará a los participantes una valiosa experiencia en el desarrollo de API REST en Node.js, así como en la gestión y manipulación de datos financieros en tiempo real. ¡Que comience la aventura de las cripto-inversiones con Poli-Doge! 🚀🌕
