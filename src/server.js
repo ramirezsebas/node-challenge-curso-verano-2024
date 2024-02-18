@@ -12,6 +12,9 @@ app.use(morgan("dev"));
 // https://www.veracode.com/blog/secure-development/fasten-your-helmetjs-part-1-securing-your-express-http-headers#:~:text=By%20Bipin%20Mistry-,Helmet.,from%20the%20end%2Duser%20perspective.
 app.use(helmet());
 
+// Permite a express convertir body en un objeto de JS
+app.use(express.json());
+
 // Esto es normal en aplicaciones para poder probar si
 // el servidor esta corriendo
 app.get("/health", (req, res) => {
