@@ -1,8 +1,10 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const { default: helmet } = require("helmet");
 const morgan = require("morgan");
 const authRouter = require("./auth/routers/auth.router.js");
+const criptoRouter = require("./cripto/routers/cripto.router.js");
+const tokenMiddleware = require("./auth/middlewares/token.middleware.js");
 
 const app = express();
 
@@ -19,6 +21,9 @@ app.use(express.json());
 
 // Rutas de autenticacion
 app.use("/auth", authRouter);
+
+// Rutas de Criptomonedas
+app.use("/cripto", tokenMiddleware, criptoRouter);
 
 // Esto es normal en aplicaciones para poder probar si
 // el servidor esta corriendo
