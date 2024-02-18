@@ -1,6 +1,7 @@
 const {
   getUserByUsernameFromFile,
-} = require("../data/getUserByUsernameFromFile");
+  saveUserToDBFile,
+} = require("../data/auth.data");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
 
@@ -15,18 +16,16 @@ function searchUsername(username) {
 }
 
 /**
- * 
- * @param {string} rawPassword 
- * @param {string} encryptedPassword 
- * @returns 
+ *
+ * @param {string} rawPassword
+ * @param {string} encryptedPassword
+ * @returns
  */
 async function validatePassword(rawPassword, encryptedPassword) {
-  const doesPasswordMatch = await bcrypt.compare(
+  return bcrypt.compare(
     rawPassword,
     encryptedPassword
   );
-
-  return doesPasswordMatch;
 }
 
 /**
@@ -46,8 +45,18 @@ function generateToken(username) {
   );
 }
 
+async function generateHashedPassword(rawPassword) {
+  return bcrypt.hash(rawPassword, 10);
+}
+
+async function saveToDB(username, password) {
+  return saveUserToDBFile(username, password);
+}
+
 module.exports = {
   searchUsername,
   validatePassword,
   generateToken,
+  generateHashedPassword,
+  saveToDB,
 };

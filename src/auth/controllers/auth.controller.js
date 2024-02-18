@@ -3,8 +3,9 @@ const {
   validatePassword,
   generateToken,
   searchUsername,
-} = require("../services/login.service");
-
+  generateHashedPassword,
+  saveToDB,
+} = require("../services/auth.service");
 
 async function loginController(req, res) {
   // Validamos que venga username y password
@@ -27,7 +28,7 @@ async function loginController(req, res) {
   }
 
   // Debemos buscar username en la base de datos y ver si existe
-  const usuario = searchUsername(username);
+  const usuario = await searchUsername(username);
 
   if (!usuario) {
     logger("No se encontro el usuario");
@@ -63,7 +64,7 @@ async function loginController(req, res) {
   const token = generateToken(usuario.username);
 
   if (!token) {
-    logger('No se pudo generar el token');
+    logger("No se pudo generar el token");
     return res.status(500).json({
       status: "error",
       message: "Error Interno del Servidor",
@@ -76,6 +77,67 @@ async function loginController(req, res) {
   });
 }
 
+async function registerController(req, res) {
+  // Validamos que venga username y password
+  const { username, password } = req.body;
+
+  if (!username) {
+    logger("Debe incluir username y password");
+    return res.status(400).json({
+      status: "error",
+      message: "Debes enviar username y password",
+    });
+  }
+
+  if (!password) {
+    logger("Debe incluir username y password");
+    return res.status(400).json({
+      status: "error",
+      message: "Debes enviar username y password",
+    });
+  }
+
+  // Validamos si ya existe usuario con el mismo username
+  // Debemos buscar username en la base de datos y ver si existe
+  const usuario = await searchUsername(username);
+
+  if (usuario) {
+    logger("Ya existe el usuario");
+    return res.status(409).json({
+      status: "error",
+      message: "username ya existe",
+    });
+  }
+
+  let hashedPassword;
+  try {
+    hashedPassword = await generateHashedPassword(password);
+  } catch (error) {
+    logger("Error generando hash...", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Error interno del servidor",
+    });
+  }
+
+  let id;
+  try {
+    id = await saveToDB(username, hashedPassword);
+  } catch (error) {
+    logger("Error creando usuario...", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Error interno del servidor",
+    });
+  }
+
+  return res.status(201).json({
+    status: "ok",
+    message: "Se creo exitosamente el usuario",
+  });
+}
+
 module.exports = {
   loginController,
+  registerController,
 };
