@@ -22,7 +22,7 @@ app.get("/health", (req, res) => {
 
 // En caso que ninguna ruta sea encontrada
 // se envia un error 404
-app.get("*", (req, res) => {
+app.all("*", (req, res) => {
   res.status(404).json({
     status: "error",
     message: "No se encontro la ruta solicitada",
