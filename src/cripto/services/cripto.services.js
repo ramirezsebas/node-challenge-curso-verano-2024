@@ -1,4 +1,3 @@
-const { default: axios } = require("axios");
 const getCriptosExterno = require("../data/cripto.data");
 
 async function getAllCriptos(limit, page) {
