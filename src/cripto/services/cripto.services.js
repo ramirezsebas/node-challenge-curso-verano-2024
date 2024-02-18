@@ -1,10 +1,15 @@
 const { default: axios } = require("axios");
 const getCriptosExterno = require("../data/cripto.data");
 
-async function getAllCriptos() {
+async function getAllCriptos(limit, page) {
   const criptos = await getCriptosExterno();
 
-  const mappedCriptos = criptos.data.map((cripto) => {
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  const limitedCriptos = criptos.slice(startIndex, endIndex);
+
+  const mappedCriptos = limitedCriptos.map((cripto) => {
     const {
       id,
       rank,
