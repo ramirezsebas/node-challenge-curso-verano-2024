@@ -5,7 +5,7 @@ async function getCriptosExterno() {
 
   const criptos = criptosResponse.data;
 
-  return criptos;
+  return criptos.data;
 }
 
 module.exports = getCriptosExterno;
