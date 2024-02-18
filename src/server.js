@@ -1,6 +1,7 @@
 const express = require("express");
 const { default: helmet } = require("helmet");
 const morgan = require("morgan");
+const authRouter = require("./auth/routers/auth.router.js");
 
 const app = express();
 
@@ -14,6 +15,9 @@ app.use(helmet());
 
 // Permite a express convertir body en un objeto de JS
 app.use(express.json());
+
+// Rutas de autenticacion
+app.use("/auth", authRouter);
 
 // Esto es normal en aplicaciones para poder probar si
 // el servidor esta corriendo
