@@ -5,10 +5,18 @@ async function getAllCriptos() {
   const criptos = await getCriptosExterno();
 
   const mappedCriptos = criptos.data.map((cripto) => {
-    const { id, symbol, name, volumeUsd24Hr, priceUsd, changePercent24Hr } =
-      cripto;
+    const {
+      id,
+      rank,
+      symbol,
+      name,
+      volumeUsd24Hr,
+      priceUsd,
+      changePercent24Hr,
+    } = cripto;
 
     return {
+      orden: rank,
       id: id,
       simbolo: symbol,
       nombre: name,
