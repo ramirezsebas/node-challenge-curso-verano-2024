@@ -3,6 +3,12 @@ const logger = require("../../utils/logger");
 const { createFileIfNotExists } = require("../../utils/fileUtils");
 const { getUserByUsernameFromFile } = require("../../auth/data/auth.data");
 
+/**
+ * 
+ * @param {string} username - El username del usuario a buscar.
+ * @returns {Promise} - Una promesa que resuelve con el usuario encontrado con sus criptos
+ *  o con null si no se encontró. 
+ */
 async function getUserCriptosByUsernameFromFile(username) {
   const usuario = await getUserByUsernameFromFile(username);
 
@@ -73,6 +79,12 @@ async function saveUserCriptoFromDBFile(username, newCripto) {
   return newUserCripto;
 }
 
+/**
+ * 
+ * @param {string} username - El username del usuario a buscar.
+ * @param {string} criptoId - El id de la cripto a buscar.
+ * @returns 
+ */
 async function findUserCriptoFromDBFile(username, criptoId) {
   const usuario = await getUserByUsernameFromFile(username);
 

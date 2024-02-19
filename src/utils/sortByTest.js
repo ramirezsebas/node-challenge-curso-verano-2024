@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {string} property - Propiedad a ordenar
+ * @returns {string} - "asc" si es ascendente, "desc" si es descendente, null si no es una propiedad válido.
+ */
 function sortByNumeric(property) {
   const regexTest = new RegExp(`[+-]?${property}`);
 
