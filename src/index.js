@@ -7,7 +7,6 @@ app.listen(PORT, (req, res) => {
 });
 
 // Manejo de errores no capturados
-
 process.on("uncaughtException", (error) => {
   console.error("uncaughtException", error);
   process.exit(1);

@@ -1,5 +1,8 @@
 const sortByTest = require("../../utils/sortByTest");
-const { getCriptosExterno, getCriptoByIDExterno } = require("../data/cripto.data");
+const {
+  getCriptosExterno,
+  getCriptoByIDExterno,
+} = require("../data/cripto.data");
 
 async function getAllCriptos(limit, page, sortBy, filter) {
   const criptos = await getCriptosExterno();
@@ -48,11 +51,11 @@ async function getAllCriptos(limit, page, sortBy, filter) {
   return sortedMappedCriptos;
 }
 
-async function getCriptoById(criptoId){
+async function getCriptoById(criptoId) {
   return getCriptoByIDExterno(criptoId);
 }
 
 module.exports = {
   getAllCriptos,
-  getCriptoById
-}
+  getCriptoById,
+};

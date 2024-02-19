@@ -126,7 +126,6 @@ async function findUserCriptoFromDBFile(username, criptoId) {
   return userCriptos.criptos.find((cripto) => cripto.id === criptoId);
 }
 
-
 module.exports = {
   getUserCriptosByUsernameFromFile,
   saveUserCriptoFromDBFile,

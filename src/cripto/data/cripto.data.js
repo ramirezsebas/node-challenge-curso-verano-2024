@@ -18,5 +18,5 @@ async function getCriptoByIDExterno(id) {
 
 module.exports = {
   getCriptoByIDExterno,
-  getCriptosExterno
-}
+  getCriptosExterno,
+};

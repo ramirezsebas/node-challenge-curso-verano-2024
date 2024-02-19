@@ -22,10 +22,7 @@ function searchUsername(username) {
  * @returns
  */
 async function validatePassword(rawPassword, encryptedPassword) {
-  return bcrypt.compare(
-    rawPassword,
-    encryptedPassword
-  );
+  return bcrypt.compare(rawPassword, encryptedPassword);
 }
 
 /**
