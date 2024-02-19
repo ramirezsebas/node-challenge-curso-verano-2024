@@ -1,7 +1,10 @@
 const { default: axios } = require("axios");
 
+
+const BASE_URL_CRIPTOS = "https://api.coincap.io/v2/assets";
+
 async function getCriptosExterno() {
-  const criptosResponse = await axios.get("https://api.coincap.io/v2/assets");
+  const criptosResponse = await axios.get(BASE_URL_CRIPTOS);
 
   const criptos = criptosResponse.data;
 
@@ -9,7 +12,7 @@ async function getCriptosExterno() {
 }
 
 async function getCriptoByIDExterno(id) {
-  const criptosResponse = await axios.get("https://api.coincap.io/v2/assets");
+  const criptosResponse = await axios.get(BASE_URL_CRIPTOS);
 
   const criptos = criptosResponse.data;
 

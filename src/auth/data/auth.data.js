@@ -1,5 +1,6 @@
 const fs = require("fs/promises");
 const logger = require("../../utils/logger");
+const { createFileIfNotExists } = require("../../utils/fileUtils");
 
 /**
  * Busca un usuario por username en el archivo usuarios.json
@@ -8,11 +9,9 @@ const logger = require("../../utils/logger");
  * con null si no se encontró.
  */
 async function getUserByUsernameFromFile(username) {
-  const usuariosJson = await fs.readFile("usuarios.json", "utf-8");
+  await createFileIfNotExists("usuarios.json");
 
-  if (!usuariosJson) {
-    await fs.writeFile("usuarios.json", "[]");
-  }
+  const usuariosJson = await fs.readFile("usuarios.json", "utf-8");
 
   const usuarios = JSON.parse(usuariosJson);
 
@@ -28,11 +27,9 @@ async function getUserByUsernameFromFile(username) {
 }
 
 async function saveUserToDBFile(username, password) {
+  await createFileIfNotExists("usuarios.json");
+  
   const usuariosJson = await fs.readFile("usuarios.json", "utf-8");
-
-  if (!usuariosJson) {
-    await fs.writeFile("usuarios.json", "[]");
-  }
 
   const usuarios = JSON.parse(usuariosJson);
 

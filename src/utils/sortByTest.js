@@ -1,8 +1,4 @@
-function sortByTest(property) {
-  if (property === "id" || property === "nombre" || property === "simbolo") {
-    return null;
-  }
-
+function sortByNumeric(property) {
   const regexTest = new RegExp(`[+-]?${property}`);
 
   if (!regexTest.test(property)) {
@@ -16,4 +12,4 @@ function sortByTest(property) {
   }
 }
 
-module.exports = sortByTest;
+module.exports = sortByNumeric;

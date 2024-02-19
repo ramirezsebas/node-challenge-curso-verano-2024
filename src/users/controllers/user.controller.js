@@ -1,4 +1,5 @@
-const { getCriptoById } = require("../../cripto/services/cripto.services");
+
+const { getCriptoByIdFromExterno } = require("../../cripto/services/cripto.services");
 const logger = require("../../utils/logger");
 const {
   getUsersCriptos,
@@ -10,6 +11,13 @@ async function getUserCriptosController(req, res) {
   const user = req.user;
   try {
     const userCriptos = await getUsersCriptos(user.username);
+
+    if(!userCriptos){
+      return res.status(404).json({
+        status: "error",
+        message: "Usuario no tiene criptos",
+      });
+    }
 
     return res.status(200).json({
       status: "ok",
@@ -38,12 +46,13 @@ async function saveUserCriptosController(req, res) {
     });
   }
 
+  let cripto;
   try {
-    const cripto = await getCriptoById(idCripto);
+    cripto = await getCriptoByIdFromExterno(idCripto);
     if (!cripto) {
       return res.status(404).json({
         status: "error",
-        message: "Cripto no encontrada",
+        message: "Cripto no encontrada entre los criptos disponibles",
       });
     }
   } catch (error) {
@@ -54,25 +63,9 @@ async function saveUserCriptosController(req, res) {
     });
   }
 
-  let userCripto;
+  let foundedUserCripto;
   try {
-    userCripto = await getCriptoById(idCripto);
-    if (!userCripto) {
-      return res.status(404).json({
-        status: "error",
-        message: "Cripto no encontrada",
-      });
-    }
-  } catch (error) {
-    logger("Error obteniendo la cripto", error);
-    return res.status(500).json({
-      status: "error",
-      message: "Error interno del servidor",
-    });
-  }
-
-  try {
-    const foundedUserCripto = await findUserCripto(user.username, idCripto);
+    foundedUserCripto = await findUserCripto(user.username, idCripto);
     if (foundedUserCripto) {
       return res.status(409).json({
         status: "error",
@@ -88,7 +81,7 @@ async function saveUserCriptosController(req, res) {
   }
 
   try {
-    const userCriptos = await saveUserCripto(user.username, userCripto);
+    const userCriptos = await saveUserCripto(user.username, cripto);
 
     return res.status(200).json({
       status: "ok",
