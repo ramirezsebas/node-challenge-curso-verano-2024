@@ -7,4 +7,6 @@ userRouter.get("/:id/criptos", userController.getUserCriptosController);
 
 userRouter.post("/:id/criptos", userController.saveUserCriptosController);
 
+userRouter.delete("/:id/criptos/:idCripto", userController.deleteUserCriptosController);
+
 module.exports = userRouter;

@@ -36,15 +36,13 @@ async function saveUserCriptoFromDBFile(username, newCripto) {
 
   const criptos = JSON.parse(criptosJson);
 
-  const userCripto = criptos.find((cripto) => username === cripto.username)
-  
+  const userCripto = criptos.find((cripto) => username === cripto.username);
+
   const newUserCripto = {
     username,
   };
 
   if (!userCripto) {
-    console.log("No se encontro el usuario");
-    console.log(userCripto);
     newUserCripto.criptos = [newCripto];
     await fs.writeFile(
       "criptos.json",
@@ -53,9 +51,9 @@ async function saveUserCriptoFromDBFile(username, newCripto) {
     return newUserCripto;
   }
 
-
-
   newUserCripto.criptos = [...userCripto.criptos, newCripto];
+
+  console.log(newUserCripto);
 
   await fs.writeFile(
     "criptos.json",
@@ -64,7 +62,7 @@ async function saveUserCriptoFromDBFile(username, newCripto) {
         if (cripto.username === username) {
           return {
             ...cripto,
-            criptos: [...cripto.criptos, newUserCripto],
+            criptos: [...cripto.criptos, newCripto],
           };
         }
         return cripto;
@@ -76,29 +74,16 @@ async function saveUserCriptoFromDBFile(username, newCripto) {
 }
 
 async function findUserCriptoFromDBFile(username, criptoId) {
-  try {
-    await fs.access("usuarios.json");
-  } catch (error) {
-    await fs.writeFile("usuarios.json", "[]");
-  }
-  const usuariosJson = await fs.readFile("usuarios.json", "utf-8");
-
-  try {
-    await fs.access("criptos.json");
-  } catch (error) {
-    await fs.writeFile("criptos.json", "[]");
-  }
-
-  const criptosJson = await fs.readFile("criptos.json", "utf-8");
-
-  const usuarios = JSON.parse(usuariosJson);
-
-  const usuario = usuarios.find((usuario) => usuario.username === username);
+  const usuario = await getUserByUsernameFromFile(username);
 
   if (!usuario) {
     logger(`No se encontro el usuario ${username}`);
     return null;
   }
+
+  await createFileIfNotExists("criptos.json");
+
+  const criptosJson = await fs.readFile("criptos.json", "utf-8");
 
   const criptos = JSON.parse(criptosJson);
 
@@ -111,8 +96,52 @@ async function findUserCriptoFromDBFile(username, criptoId) {
   return userCriptos.criptos.find((cripto) => cripto.id === criptoId);
 }
 
+async function deletUserCriptoFromDBFile(username, criptoId) {
+  const usuario = await getUserByUsernameFromFile(username);
+
+  if (!usuario) {
+    logger(`No se encontro el usuario ${username}`);
+    return null;
+  }
+
+  await createFileIfNotExists("criptos.json");
+
+  const criptosJson = await fs.readFile("criptos.json", "utf-8");
+
+  const criptos = JSON.parse(criptosJson);
+
+  const userCriptos = criptos.find((cripto) => username === cripto.username);
+
+  if (!userCriptos) {
+    return null;
+  }
+  
+  const newUserCriptos = userCriptos.criptos.filter((cripto) => cripto.id !== criptoId);
+
+  await fs.writeFile(
+    "criptos.json",
+    JSON.stringify(
+      criptos.map((cripto) => {
+        if (cripto.username === username) {
+          return {
+            ...cripto,
+            criptos: newUserCriptos,
+          };
+        }
+        return cripto;
+      })
+    )
+  );
+
+  return {
+    username,
+    cripto:criptoId,
+  };
+}
+
 module.exports = {
   getUserCriptosByUsernameFromFile,
   saveUserCriptoFromDBFile,
   findUserCriptoFromDBFile,
+  deletUserCriptoFromDBFile,
 };

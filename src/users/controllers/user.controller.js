@@ -5,6 +5,7 @@ const {
   getUsersCriptos,
   saveUserCripto,
   findUserCripto,
+  deleteUserCripto,
 } = require("../services/users.service");
 
 async function getUserCriptosController(req, res) {
@@ -98,7 +99,55 @@ async function saveUserCriptosController(req, res) {
   }
 }
 
+async function deleteUserCriptosController(req, res) {
+  const user = req.user;
+
+  const { idCripto } = req.params;
+
+  if (!idCripto) {
+    return res.status(400).json({
+      status: "error",
+      message: "Debes enviar el id de la cripto",
+    });
+  }
+
+  let foundedUserCripto;
+  try {
+    foundedUserCripto = await findUserCripto(user.username, idCripto);
+    if (!foundedUserCripto) {
+      return res.status(409).json({
+        status: "error",
+        message: "Cripto no existe",
+      });
+    }
+  } catch (error) {
+    logger("Error obteniendo la cripto", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Error interno del servidor",
+    });
+  }
+
+  try {
+    const userCriptos = await deleteUserCripto(user.username, idCripto);
+
+    return res.status(200).json({
+      status: "ok",
+      message: "Se pudo eliminar el cripto del usuario",
+      data: userCriptos,
+    });
+  } catch (error) {
+    logger("Error obteniendo los criptos del usuarios", error);
+    return res.status(500).json({
+      status: "error",
+
+      message: "Error interno del servidor",
+    });
+  }
+}
+
 module.exports = {
   getUserCriptosController,
   saveUserCriptosController,
+  deleteUserCriptosController,
 };
