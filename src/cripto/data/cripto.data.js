@@ -8,4 +8,15 @@ async function getCriptosExterno() {
   return criptos.data;
 }
 
-module.exports = getCriptosExterno;
+async function getCriptoByIDExterno(id) {
+  const criptosResponse = await axios.get("https://api.coincap.io/v2/assets");
+
+  const criptos = criptosResponse.data;
+
+  return criptos.data.find((cripto) => cripto.id === id);
+}
+
+module.exports = {
+  getCriptoByIDExterno,
+  getCriptosExterno
+}

@@ -23,7 +23,8 @@ function tokenMiddleware(req, res, next) {
   }
 
   try {
-    jsonwebtoken.verify(token, process.env.JWT_SECRET);
+    const user = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+    req.user = user;
     next();
   } catch (error) {
     logger("JWT es invalido");

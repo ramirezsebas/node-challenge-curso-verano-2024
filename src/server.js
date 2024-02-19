@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const authRouter = require("./auth/routers/auth.router.js");
 const criptoRouter = require("./cripto/routers/cripto.router.js");
 const tokenMiddleware = require("./auth/middlewares/token.middleware.js");
+const userRouter = require("./users/routers/user.router.js");
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.use("/auth", authRouter);
 
 // Rutas de Criptomonedas
 app.use("/cripto", tokenMiddleware, criptoRouter);
+
+// Rutas de Usuarios
+app.use("/users", tokenMiddleware, userRouter);
 
 // Esto es normal en aplicaciones para poder probar si
 // el servidor esta corriendo

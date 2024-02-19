@@ -1,5 +1,5 @@
 const logger = require("../../utils/logger");
-const getAllCriptos = require("../services/cripto.services");
+const { getAllCriptos } = require("../services/cripto.services");
 
 async function criptoController(req, res) {
   const { limit, page, sortBy } = req.query;
@@ -9,7 +9,7 @@ async function criptoController(req, res) {
   let newSortBy = !sortBy ? "orden" : sortBy;
 
   try {
-    const criptos = await getAllCriptos(newLimit, newPage,newSortBy);
+    const criptos = await getAllCriptos(newLimit, newPage, newSortBy);
 
     return res.status(200).json({
       status: "ok",
